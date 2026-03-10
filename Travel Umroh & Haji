@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barokah Umrah - Perjalanan Ibadah Berkah & Nyaman</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js (Untuk Logika Menu Mobile) -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .testimonial-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        @media (min-width: 768px) {
+            .testimonial-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .testimonial-item:nth-child(4) {
+                grid-column: span 1 / span 1;
+                grid-column-start: 1;
+                margin-left: 50%;
+            }
+            .testimonial-item:nth-child(5) {
+                grid-column: span 1 / span 1;
+                margin-left: 50%;
+            }
+        }
+        /* Layout khusus untuk 5 item agar baris terakhir seimbang */
+        @media (min-width: 1024px) {
+            .testimonial-grid {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+            }
+            .testimonial-item { grid-column: span 2 / span 2; }
+            .testimonial-item:nth-child(4) { grid-column: 2 / span 2; margin-left: 0; }
+            .testimonial-item:nth-child(5) { grid-column: 4 / span 2; margin-left: 0; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden" x-data="{ isMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+    <!-- Navigasi -->
+    <nav :class="scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'" class="fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-emerald-700 rounded-full flex items-center justify-center text-amber-400 font-bold text-xl shadow-lg border border-amber-500/30">B</div>
+                <span :class="scrolled ? 'text-emerald-900' : 'text-white'" class="text-xl font-bold tracking-tight">Barokah Umrah</span>
+            </div>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" :class="scrolled ? 'text-slate-700' : 'text-white'" class="text-sm font-medium hover:text-amber-500 transition-colors">Beranda</a>
+                <a href="#about" :class="scrolled ? 'text-slate-700' : 'text-white'" class="text-sm font-medium hover:text-amber-500 transition-colors">Tentang Kami</a>
+                <a href="#packages" :class="scrolled ? 'text-slate-700' : 'text-white'" class="text-sm font-medium hover:text-amber-500 transition-colors">Paket Umrah</a>
+                <a href="#testimonials" :class="scrolled ? 'text-slate-700' : 'text-white'" class="text-sm font-medium hover:text-amber-500 transition-colors">Testimoni</a>
+                <a href="#location" :class="scrolled ? 'text-slate-700' : 'text-white'" class="text-sm font-medium hover:text-amber-500 transition-colors">Lokasi</a>
+                <button class="bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold py-2.5 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                    Hubungi Kami
+                </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden" @click="isMenuOpen = !isMenuOpen">
+                <i data-lucide="menu" :class="scrolled ? 'text-emerald-900' : 'text-white'" x-show="!isMenuOpen"></i>
+                <i data-lucide="x" :class="scrolled ? 'text-emerald-900' : 'text-white'" x-show="isMenuOpen"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div x-show="isMenuOpen" x-transition class="md:hidden bg-white absolute top-full left-0 w-full shadow-2xl p-6 flex flex-col space-y-4">
+            <a href="#home" @click="isMenuOpen = false" class="text-slate-700 font-medium border-b border-slate-100 pb-2">Beranda</a>
+            <a href="#about" @click="isMenuOpen = false" class="text-slate-700 font-medium border-b border-slate-100 pb-2">Tentang Kami</a>
+            <a href="#packages" @click="isMenuOpen = false" class="text-slate-700 font-medium border-b border-slate-100 pb-2">Paket Umrah</a>
+            <a href="#location" @click="isMenuOpen = false" class="text-slate-700 font-medium border-b border-slate-100 pb-2">Lokasi</a>
+            <button class="bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl">Daftar Sekarang</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen min-h-[650px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-emerald-900/40 to-slate-50 z-10"></div>
+            <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Makkah" class="w-full h-full object-cover">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-20 pt-20 text-center md:text-left">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 bg-amber-500/20 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+                    <i data-lucide="award" class="w-3 h-3 mr-1"></i>
+                    <span>Izin Kemenag RI No. 123 Tahun 2024</span>
+                </div>
+                <h1 class="text-4xl md:text-7xl font-extrabold leading-tight mb-6 text-white">
+                    Ibadah Khusyuk, <br>
+                    <span class="text-amber-400">Hati Tenang</span> Bersama Kami
+                </h1>
+                <p class="text-lg md:text-xl text-slate-100 mb-10 max-w-2xl leading-relaxed opacity-90">
+                    Mewujudkan impian Anda menuju Baitullah dengan bimbingan sesuai Sunnah dan fasilitas terbaik untuk kenyamanan ibadah Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-5 justify-center md:justify-start">
+                    <a href="#packages" class="bg-amber-500 hover:bg-amber-600 text-emerald-950 text-center font-bold py-4 px-10 rounded-full transition-all shadow-xl flex items-center justify-center group">
+                        Cek Jadwal Keberangkatan <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="flex-1 relative">
+                    <div class="rounded-[2.5rem] overflow-hidden shadow-2xl relative group">
+                        <img src="https://images.unsplash.com/photo-1565552134634-1115544e7ab9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jemaah" class="w-full h-[500px] object-cover">
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 bg-emerald-800 text-white p-8 rounded-3xl shadow-2xl hidden lg:block border-4 border-white">
+                        <p class="text-4xl font-black text-amber-400">15th</p>
+                        <p class="text-sm font-medium opacity-90">Pengalaman Melayani</p>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-emerald-800 font-bold text-sm tracking-widest uppercase mb-4">Tentang Barokah Umrah</h2>
+                    <h3 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Melayani Dengan <span class="text-emerald-700">Sepenuh Hati</span></h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed text-lg">
+                        Kami adalah mitra ibadah Anda yang berkomitmen memberikan ketenangan mulai dari persiapan manasik hingga kembali ke tanah air.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                        <div class="flex items-center"><i data-lucide="check-circle" class="text-emerald-600 mr-2"></i> Bimbingan Sunnah</div>
+                        <div class="flex items-center"><i data-lucide="check-circle" class="text-emerald-600 mr-2"></i> Pasti Berangkat</div>
+                        <div class="flex items-center"><i data-lucide="check-circle" class="text-emerald-600 mr-2"></i> Hotel Dekat</div>
+                        <div class="flex items-center"><i data-lucide="check-circle" class="text-emerald-600 mr-2"></i> Layanan 24 Jam</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paket Umrah -->
+    <section id="packages" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-emerald-800 font-bold text-sm tracking-widest uppercase mb-4">Pilihan Paket</h2>
+            <h3 class="text-3xl md:text-4xl font-bold mb-16">Paket Perjalanan Yang Penuh Berkah</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card Paket 1 -->
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 hover:-translate-y-3 transition-transform">
+                    <h4 class="text-xl font-bold mb-4">Paket Hemat (Silver)</h4>
+                    <p class="text-4xl font-black text-emerald-700 mb-8">Rp 28.5jt</p>
+                    <ul class="text-left space-y-4 mb-10">
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Hotel Bintang 3</li>
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Makan 3x Sehari</li>
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Mutawwif Berpengalaman</li>
+                    </ul>
+                    <button class="w-full py-4 bg-slate-100 rounded-xl font-bold hover:bg-slate-200">Pilih Paket</button>
+                </div>
+
+                <!-- Card Paket 2 (Recommended) -->
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl border-2 border-amber-500 relative hover:-translate-y-3 transition-transform">
+                    <span class="absolute top-0 right-0 bg-amber-500 text-emerald-950 text-[10px] font-black px-4 py-1 rounded-bl-xl">POPULER</span>
+                    <h4 class="text-xl font-bold mb-4">Paket Reguler (Gold)</h4>
+                    <p class="text-4xl font-black text-emerald-700 mb-8">Rp 32.9jt</p>
+                    <ul class="text-left space-y-4 mb-10">
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Hotel Bintang 4</li>
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Penerbangan Langsung</li>
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Perlengkapan Premium</li>
+                    </ul>
+                    <button class="w-full py-4 bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-800 shadow-lg">Pilih Paket</button>
+                </div>
+
+                <!-- Card Paket 3 -->
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 hover:-translate-y-3 transition-transform">
+                    <h4 class="text-xl font-bold mb-4">Paket VIP (Platinum)</h4>
+                    <p class="text-4xl font-black text-emerald-700 mb-8">Rp 45.0jt</p>
+                    <ul class="text-left space-y-4 mb-10">
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Hotel Bintang 5</li>
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Kereta Cepat</li>
+                        <li class="flex items-center text-sm"><i data-lucide="check" class="text-emerald-500 mr-2 w-4"></i> Layanan Prioritas</li>
+                    </ul>
+                    <button class="w-full py-4 bg-slate-100 rounded-xl font-bold hover:bg-slate-200">Pilih Paket</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testimonials" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-emerald-800 font-bold text-sm tracking-widest uppercase mb-4">Testimoni Jemaah</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-slate-900">Kisah Perjalanan Penuh Berkah</h3>
+            </div>
+
+            <div class="testimonial-grid">
+                <!-- Testi 1 -->
+                <div class="testimonial-item bg-slate-50 p-8 rounded-3xl border border-slate-100 flex flex-col h-full shadow-sm">
+                    <div class="flex text-amber-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 italic mb-6 leading-relaxed flex-grow">"Alhamdulillah, perjalanan umrah pertama saya sangat berkesan. Pembimbing sangat sabar menjelaskan rukun-rukunnya secara detail."</p>
+                    <div class="flex items-center mt-4">
+                        <img src="https://i.pravatar.cc/150?u=ahmad" alt="H. Ahmad Subarjo" class="w-12 h-12 rounded-full mr-4 border-2 border-emerald-500">
+                        <div>
+                            <h5 class="font-bold text-slate-900">H. Ahmad Subarjo</h5>
+                            <p class="text-xs text-slate-500">Jakarta Pusat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="testimonial-item bg-slate-50 p-8 rounded-3xl border border-slate-100 flex flex-col h-full shadow-sm">
+                    <div class="flex text-amber-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 italic mb-6 leading-relaxed flex-grow">"Hotel di Mekkah benar-benar dekat dengan pelataran Masjidil Haram. Sangat memudahkan saya yang membawa orang tua."</p>
+                    <div class="flex items-center mt-4">
+                        <img src="https://i.pravatar.cc/150?u=siti" alt="Hj. Siti Aminah" class="w-12 h-12 rounded-full mr-4 border-2 border-emerald-500">
+                        <div>
+                            <h5 class="font-bold text-slate-900">Hj. Siti Aminah</h5>
+                            <p class="text-xs text-slate-500">Bandung</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 3 -->
+                <div class="testimonial-item bg-slate-50 p-8 rounded-3xl border border-slate-100 flex flex-col h-full shadow-sm">
+                    <div class="flex text-amber-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 italic mb-6 leading-relaxed flex-grow">"Manajemen bagasi sangat rapi. Saya tidak perlu pusing memikirkan koper, semua sudah diurus oleh tim handling Barokah."</p>
+                    <div class="flex items-center mt-4">
+                        <img src="https://i.pravatar.cc/150?u=ridwan" alt="Drs. Ridwan Hakim" class="w-12 h-12 rounded-full mr-4 border-2 border-emerald-500">
+                        <div>
+                            <h5 class="font-bold text-slate-900">Drs. Ridwan Hakim</h5>
+                            <p class="text-xs text-slate-500">Surabaya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 4 -->
+                <div class="testimonial-item bg-slate-50 p-8 rounded-3xl border border-slate-100 flex flex-col h-full shadow-sm">
+                    <div class="flex text-amber-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 italic mb-6 leading-relaxed flex-grow">"Makanan kateringnya luar biasa, menu Indonesia asli jadi tidak bikin perut kaget. Sangat membantu menjaga kondisi fisik selama ibadah."</p>
+                    <div class="flex items-center mt-4">
+                        <img src="https://i.pravatar.cc/150?u=heru" alt="Bpk. Heru Prasetyo" class="w-12 h-12 rounded-full mr-4 border-2 border-emerald-500">
+                        <div>
+                            <h5 class="font-bold text-slate-900">Bpk. Heru Prasetyo</h5>
+                            <p class="text-xs text-slate-500">Semarang</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testi 5 -->
+                <div class="testimonial-item bg-slate-50 p-8 rounded-3xl border border-slate-100 flex flex-col h-full shadow-sm">
+                    <div class="flex text-amber-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 italic mb-6 leading-relaxed flex-grow">"Proses pendaftaran dan pengurusan dokumen sangat cepat. Saya dibantu sampai urusan vaksin dan paspor selesai tanpa ribet."</p>
+                    <div class="flex items-center mt-4">
+                        <img src="https://i.pravatar.cc/150?u=ratna" alt="Ibu Ratna Sari" class="w-12 h-12 rounded-full mr-4 border-2 border-emerald-500">
+                        <div>
+                            <h5 class="font-bold text-slate-900">Ibu Ratna Sari</h5>
+                            <p class="text-xs text-slate-500">Medan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lokasi & Kontak Section -->
+    <section id="location" class="py-24 bg-slate-50 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-emerald-800 font-bold text-sm tracking-widest uppercase mb-4">Lokasi Kantor</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-slate-900">Kunjungi Kantor Kami</h3>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12 bg-white p-6 md:p-12 rounded-[3rem] shadow-xl">
+                <!-- Info Alamat -->
+                <div class="lg:w-1/3 space-y-8">
+                    <div class="bg-slate-50 p-8 rounded-3xl shadow-sm border border-slate-100">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Alamat Pusat</h4>
+                        <p class="text-slate-600 leading-relaxed">
+                            Gedung Barokah, Lantai 3<br>
+                            Jl. Jend. Sudirman No. 45<br>
+                            Jakarta Pusat, DKI Jakarta 10210
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-8 rounded-3xl shadow-sm border border-slate-100">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="clock" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Jam Operasional</h4>
+                        <p class="text-slate-600">Senin - Jumat: 09:00 - 17:00</p>
+                        <p class="text-slate-600">Sabtu: 09:00 - 14:00</p>
+                        <p class="text-emerald-600 font-medium mt-2">Minggu & Tgl Merah: Libur</p>
+                    </div>
+
+                    <div class="bg-emerald-800 text-white p-8 rounded-3xl shadow-lg">
+                        <h4 class="text-xl font-bold mb-4">Hubungi Admin</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="phone" class="w-4 h-4 text-amber-400"></i>
+                                <span>(021) 555-0123</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="mail" class="w-4 h-4 text-amber-400"></i>
+                                <span>info@barokahumrah.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Iframe -->
+                <div class="lg:w-2/3 h-[500px] lg:h-auto min-h-[400px] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.467439567946!2d106.8197775758832!3d-6.201894460754228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f41d0115049b%3A0x6e9a65f973024c0d!2sJl.%20Jend.%20Sudirman%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        class="w-full h-full border-0" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-8">
+                <div class="w-10 h-10 bg-emerald-700 rounded-full flex items-center justify-center text-amber-400 font-bold">B</div>
+                <span class="text-2xl font-bold text-white">Barokah Umrah</span>
+            </div>
+            <p class="max-w-md mx-auto mb-10">Penyelenggara Perjalanan Ibadah Umrah Resmi Kemenag RI. Melayani dengan amanah.</p>
+            <div class="pt-8 border-t border-slate-800 text-sm">
+                &copy; 2024 PT. Barokah Umrah Indonesia. Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/6281234567890" class="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-50">
+        <i data-lucide="phone" class="w-6 h-6"></i>
+    </a>
+
+    <script>
+        // Inisialisasi Ikon Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
